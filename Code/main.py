@@ -20,14 +20,9 @@ while(True):
     #create and multiply ROI
     height = edges.shape[0]
     width = edges.shape[1]
-    rectangle = np.array([ [(width/10,height), (width/5,height), (width/5,0), (width/10,0)] , [(9*width/10 ,height), (4*width/5 ,height), (4*width/5 ,0), (9*width/10 ,0)] ], np.int32)
+    rectangle = np.array([ [(2*width/10,height), (3*width/10,height), (5*width/10,0)] , [(8*width/10 ,height), (7*width/10 ,height), (5*width/10 ,0)] ], np.int32)
     mask = np.zeros_like(edges)
-    x1,y1 = rectangle[0,0]
-    x2,y2 = rectangle[0,2]
-    x3,y3 = rectangle[1,0]
-    x4,y4 = rectangle[1,2]
-    frame = cv2.rectangle(frame, (x1,y1),(x2,y2),(255,0,0),2)
-    frame = cv2.rectangle(frame, (x3,y3),(x4,y4),(255,0,0),2)
+    frame = cv2.polylines(frame, rectangle,1,(255,0,0),2)
     cv2.fillPoly(mask, rectangle,255)
     cv2.imshow('Mask',mask)
 

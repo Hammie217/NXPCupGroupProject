@@ -3,7 +3,8 @@ import cv2
 import time
 
 cap = cv2.VideoCapture(0)
-
+sumOfFPS=0
+sumOfFPSQ=0
 while(True):
     # Capture frame-by-frame
     start_time = time.time()
@@ -20,13 +21,16 @@ while(True):
     #create and multiply ROI
     height = edges.shape[0]
     width = edges.shape[1]
-    rectangle = np.array([ [(2*width/10,height), (3*width/10,height), (5*width/10,0)] , [(8*width/10 ,height), (7*width/10 ,height), (5*width/10 ,0)] ], np.int32)
+    lanes = np.array([ [(1*width/10,height), (4*width/10,height), (5*width/10,0)] , [(9*width/10 ,height), (6*width/10 ,height), (5*width/10 ,0)] ], np.int32)
+
     mask = np.zeros_like(edges)
-    frame = cv2.polylines(frame, rectangle,1,(255,0,0),2)
-    cv2.fillPoly(mask, rectangle,255)
-    cv2.imshow('Mask',mask)
+    frame = cv2.polylines(frame, lanes,1,(255,0,0),2)
+
+
+    cv2.fillPoly(mask, lanes,255)
 
     edges = cv2.multiply(edges,mask)
+
 
 
     # Detect points that form a line
@@ -42,7 +46,10 @@ while(True):
 
     # Display the resulting frame
     cv2.imshow('frame',frame)
-    print("{0:4.2f} Seconds  ({1:4.1f} FPS)".format((time.time() - start_time), (1/(time.time() - start_time))))
+    print("{0:4.2f} Seconds".format((time.time() - start_time)))
+    sumOfFPS+=(1/(time.time() - start_time))
+    sumOfFPSQ +=1
+    print("Average FPS {0:4.1f}".format( (sumOfFPS/sumOfFPSQ) ) ) 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 

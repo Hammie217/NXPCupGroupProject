@@ -9,41 +9,102 @@ while(True):
     # Capture frame-by-frame
     start_time = time.time()
     ret, frame = cap.read()
+    #frame = cv2.resize(frame,None,fx=0.25,fy=0.25)
 
     # Our operations on the frame come here
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     #Blur
     gray = cv2.GaussianBlur(gray,(5,5),0)
 
+    ret, BorW = cv2.threshold(gray,80,255,0)
+    total=0
+    hits=0
+    for i in range(0,int(BorW.shape[1]/2)):
+        if(BorW[500][i]==0):
+            total+=i
+            hits+=1
+    if(hits>0):
+        averageL = round(total/hits)
+    else:
+        averageL=int(BorW.shape[1]/4)
+    total=0
+    hits=0
+    for i in range(int(BorW.shape[1]/2),BorW.shape[1]):
+        if(BorW[500][i]==0):
+            total+=(i)-BorW.shape[1]/2
+            hits+=1
+    if(hits>0):
+        averageR = round(total/hits) + int(BorW.shape[1]/2)
+    else:
+        averageR=3*int(BorW.shape[1]/4)
+
+
+    cv2.rectangle(frame,(0,500),(1280,550),(0,255,255),2)
+    cv2.line(frame,(320,500),(320,550),(0,255,255),2)
+    cv2.line(frame,(640,500),(640,550),(255,255,255),2)
+    cv2.line(frame,(960,500),(960,550),(0,255,255),2)
+    cv2.line(frame,(averageL,500),(averageL,550),(0,0,255),2)
+    cv2.line(frame,(averageR,500),(averageR,550),(0,0,255),2)
+
+
+    
+
+    #contours, hierarchy = cv2.findContours(BorW,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+
+    #img = cv2.drawContours(frame, contours, -1, (0,255,0), 3)
+
+    #cropped = BorW[0:50, 0:50]
     # Find the edges in the image using canny detector
-    edges = cv2.Canny(gray, 100, 200)
+    #edges = cv2.Canny(gray, 100, 200)
 
     #create and multiply ROI
-    height = edges.shape[0]
-    width = edges.shape[1]
-    lanes = np.array([ [(1*width/10,height), (4*width/10,height), (5*width/10,0)] , [(9*width/10 ,height), (6*width/10 ,height), (5*width/10 ,0)] ], np.int32)
+    #height = gray.shape[0]
+    #width = gray.shape[1]
+    #lanes = np.array([ [(1*width/10,height), (4*width/10,height), (5*width/10,0)] , [(9*width/10 ,height), (6*width/10 ,height), (5*width/10 ,0)] ], np.int32)
 
-    mask = np.zeros_like(edges)
-    frame = cv2.polylines(frame, lanes,1,(255,0,0),2)
+    #mask = np.zeros_like(edges)
+    #frame = cv2.polylines(frame, lanes,1,(255,0,0),2)
 
 
-    cv2.fillPoly(mask, lanes,255)
+    #cv2.fillPoly(mask, lanes,255)
 
-    edges = cv2.multiply(edges,mask)
+    #edges = cv2.multiply(edges,mask)
 
 
 
     # Detect points that form a line
-    lines = cv2.HoughLinesP(edges, 1, np.pi/180, 100, minLineLength=10, maxLineGap=250)
+    #lines = cv2.HoughLinesP(edges, 1, np.pi/180, 100, minLineLength=10, maxLineGap=250)
     # Draw lines on the image
-    try:
-        for line in lines: 
-            for x1,y1,x2,y2 in line:
-                cv2.line(frame,(x1,y1),(x2,y2),(0,255,0),2)
-    except:
-        print("Error")
+    #try:
+    #    for line in lines: 
+    #        for x1,y1,x2,y2 in line:
+    #except:
+    ##            cv2.line(frame,(x1,y1),(x2,y2),(0,255,0),2)
+    #    print("Error")
     # Show result
+    '''
+    IMG_SIZE = frame.shape[::-1][1:]
+    OFFSET = 300
+    PRES_SRC_PNTS = np.float32([
+        (596, 447), # Top-left corner
+        (190, 720), # Bottom-left corner
+        (1125, 720), # Bottom-right corner
+        (685, 447) # Top-right corner
+    ])
 
+    PRES_DST_PNTS = np.float32([
+    [OFFSET, 0], 
+    [OFFSET, IMG_SIZE[1]],
+    [IMG_SIZE[0]-OFFSET, IMG_SIZE[1]], 
+    [IMG_SIZE[0]-OFFSET, 0]
+    ])
+
+    M = cv2.getPerspectiveTransform(PRES_SRC_PNTS, PRES_DST_PNTS)
+
+    warped = cv2.warpPerspective(frame, M, IMG_SIZE, flags=cv2.INTER_LINEAR)
+
+
+    '''
     # Display the resulting frame
     cv2.imshow('frame',frame)
     print("{0:4.2f} Seconds".format((time.time() - start_time)))

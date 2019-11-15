@@ -1,7 +1,7 @@
 from periphery import PWM
 
 class PWMMotor():
-    def __init__(pin,self):
+    def __init__(self,pin):
         if(pin == 32):
             PWMOut = 0
         elif(pin==33):
@@ -11,13 +11,13 @@ class PWMMotor():
         else:
             print("Assumed PWM chip number given")
             PWMOut = pin
-        self.controllerNumber=PWMOut
+        self.controllerNumber = PWMOut
         self.pwm = PWM(PWMOut, 0)
     
-    def setFrequency(freq,self):
+    def setFrequency(self,frequency):
         self.pwm.frequency = 50
     
-    def setDuty(Duty,self):
+    def setDuty(self,Duty):
         self.pwm.duty_cycle = Duty
 
     def start(self):
@@ -30,7 +30,6 @@ class PWMMotor():
 
 motor1 = PWMMotor(33)
 motor1.setFrequency(50)
-# Set frequency to 1 kHz
 motor1.setDuty(0.05)
 
 motor1.start()

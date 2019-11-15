@@ -26,16 +26,12 @@ class PWMMotor():
     def stop(self):
         self.pwm.close()
 
-# Open PWM chip 0, channel 10
 
-motor1 = PWMMotor(33)
+motor1 = PWMMotor(32)
 motor1.setFrequency(50)
-motor1.setDuty(0.05)
+motor1.setDuty(0.10)
 
 motor1.start()
-while 1:
-    pass
-# Stop
 motor1.stop()
 
 

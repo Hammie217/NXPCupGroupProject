@@ -19,7 +19,7 @@ class PWMMotor():
     def setFrequency(self,frequency):
         self.pwm.frequency = frequency
     
-    def setDuty(self,Duty):
+    def setSpeed(self,Duty):
         if((Duty>0)and(Duty<100)):
             Duty=(Duty*0.0005)+0.05
             self.pwm.duty_cycle = Duty
@@ -38,7 +38,7 @@ class PWMMotor():
 
 
 motor1 = PWMMotor(32)
-motor1.setDuty(100)
+motor1.setSpeed100)
 motor1.start()
 motor1.stop()
 

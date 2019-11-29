@@ -17,34 +17,43 @@ while(True):
     gray = cv2.GaussianBlur(gray,(5,5),0)
 
     ret, BorW = cv2.threshold(gray,80,255,0)
-    total=0
-    hits=0
-    for i in range(0,int(BorW.shape[1]/2)):
-        if(BorW[500][i]==0):
-            total+=i
-            hits+=1
-    if(hits>0):
-        averageL = round(total/hits)
-    else:
-        averageL=int(BorW.shape[1]/4)
-    total=0
-    hits=0
-    for i in range(int(BorW.shape[1]/2),BorW.shape[1]):
-        if(BorW[500][i]==0):
-            total+=(i)-BorW.shape[1]/2
-            hits+=1
-    if(hits>0):
-        averageR = round(total/hits) + int(BorW.shape[1]/2)
-    else:
-        averageR=3*int(BorW.shape[1]/4)
 
-
-    cv2.rectangle(frame,(0,500),(1280,550),(0,255,255),2)
-    cv2.line(frame,(320,500),(320,550),(0,255,255),2)
-    cv2.line(frame,(640,500),(640,550),(255,255,255),2)
-    cv2.line(frame,(960,500),(960,550),(0,255,255),2)
-    cv2.line(frame,(averageL,500),(averageL,550),(0,0,255),2)
-    cv2.line(frame,(averageR,500),(averageR,550),(0,0,255),2)
+    height = BorW.shape[0]
+    width = BorW.shape[1]
+    print(width)
+    averageL = [None] * 10
+    averageR = [None] * 10
+    for ii in range(0,10):
+        total=0
+        hits=0
+        for i in range(0,int(BorW.shape[1]/2)):
+            if(BorW[int(ii*height/10)][i]==0):
+                total+=i
+                hits+=1
+        if(hits>0):
+            averageLT = round(total/hits)
+        else:
+            averageLT=int(BorW.shape[1]/4)
+        averageL[ii]=averageLT
+        
+        total=0
+        hits=0
+        for i in range(int(BorW.shape[1]/2),BorW.shape[1]):
+            if(BorW[int(ii*height/10)][i]==0):
+                total+=(i)-BorW.shape[1]/2
+                hits+=1
+        if(hits>0):
+            averageRT = round(total/hits) + int(BorW.shape[1]/2)
+        else:
+            averageRT=3*int(BorW.shape[1]/4)
+        averageR[ii]=averageRT
+    for ii in range(0,10):
+        cv2.rectangle(frame,(0,int((ii)*height/10)),(width,int((ii+1)*height/10)),(0,255,255),2)
+        cv2.line(frame,(int(0.25*width),int((ii)*height/10)),(int(0.25*width),int((ii+1)*height/10)),(0,255,255),2)
+        cv2.line(frame,(int(0.5*width),int((ii)*height/10)),(int(0.5*width),int((ii+1)*height/10)),(255,255,255),2)
+        cv2.line(frame,(int(0.75*width),int((ii)*height/10)),(int(0.75*width),int((ii+1)*height/10)),(0,255,255),2)
+        cv2.line(frame,(int(averageL[ii]),int((ii)*height/10)),(int(averageL[ii]),int((ii+1)*height/10)),(0,0,255),2)
+        cv2.line(frame,(int(averageR[ii]),int((ii)*height/10)),(int(averageR[ii]),int((ii+1)*height/10)),(0,0,255),2)
 
 
     

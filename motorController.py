@@ -33,12 +33,12 @@ class PWMMotor():
         self.pwm.enable()
 
     def stop(self):
-        self.setDuty(-1)
+        self.setSpeed(-1)
         self.pwm.close()
 
 
 motor1 = PWMMotor(32)
-motor1.setSpeed100)
+motor1.setSpeed(100)
 motor1.start()
 motor1.stop()
 

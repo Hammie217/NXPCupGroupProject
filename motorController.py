@@ -1,5 +1,5 @@
 from periphery import PWM
-
+import time
 class PWMMotor():
     def __init__(self,pin):
         if(pin == 32):
@@ -38,8 +38,17 @@ class PWMMotor():
 
 
 motor1 = PWMMotor(32)
-motor1.setSpeed(100)
+motor2 = PWMMotor(33)
 motor1.start()
+motor2.start()
+
+for i in range(0,100):
+    motor1.setSpeed(i)
+    motor2.setSpeed(i)
+    print(i)
+    time.sleep(0.1)
+
 motor1.stop()
+motor2.stop()
 
 

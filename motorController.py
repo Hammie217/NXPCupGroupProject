@@ -80,10 +80,11 @@ motor1.start()
 motor2.start()
 steering.start()
 
+
 for i in range(0,90):
     motor1.setSpeed(i)
     motor2.setSpeed(i)
-    steering.setPosition(i)
+    steering.setPosition((i*2)-90)
     print(i)
     time.sleep(0.1)
 

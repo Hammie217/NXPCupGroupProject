@@ -59,7 +59,7 @@ class Servo():
         if((Rotation>-90)and(Rotation<90)):
             Duty = 0.075+(Rotation*0.05/180)
             self.pwm.duty_cycle = Duty
-        elif(Rotation==-1):
+        elif(Rotation==-100):
             self.pwm.duty_cycle = 0
         else:
             print("Incorrect postion (-90 to 90)")
@@ -69,7 +69,7 @@ class Servo():
         self.pwm.enable()
 
     def stop(self):
-        self.setPosition(-1)
+        self.setPosition(-100)
         self.pwm.close()
 
 

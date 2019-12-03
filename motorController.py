@@ -121,7 +121,7 @@ def testMotorsAndSteering():
 
 def testI2CBus():
     board1=I2CPin(1)
-    board1.sendData(1)
+    board1.sendData([0,1,2])
     board1.stop()
 
-testI2CBus([0,1,2])
+testI2CBus()

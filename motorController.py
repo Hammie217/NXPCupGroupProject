@@ -83,8 +83,11 @@ class I2CPin():
             print("Invalid I2C pin given (1-2)")
 
     def sendData(self,message):
-        msgs = [I2C.Message([0x69])]
-        self.i2c.transfer(0x1D,msgs)
+        try:
+            msgs = [I2C.Message([0x69])]
+            self.i2c.transfer(0x1D,msgs)
+        except:
+            print("Unable to find device at 0x1D")
 
     def stop(self):
         self.i2c.close()

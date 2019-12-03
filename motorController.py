@@ -83,7 +83,7 @@ class I2CPin():
             print("Invalid I2C pin given (1-2)")
 
     def sendData(self,message):
-        self.i2c.transfer(0x1D,I2C.Message(bytes(message),read=True))
+        self.i2c.transfer(0x1D,[I2C.Message(bytes(message)),read=True])
 
     def stop(self):
         self.i2c.close()

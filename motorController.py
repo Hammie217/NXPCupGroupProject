@@ -124,4 +124,4 @@ def testI2CBus():
     board1.sendData(1)
     board1.stop()
 
-testI2CBus()
+testI2CBus([0,1,2])

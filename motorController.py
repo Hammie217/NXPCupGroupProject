@@ -86,7 +86,7 @@ class I2CPin():
         msgs=[]
         try:
             for i in message:
-                msgs.append(I2C.Message([i]))
+                msgs.append(I2C.Message([i.to_bytes(2)]))
             try:
                 self.i2c.transfer(0x1D,msgs)
             except:

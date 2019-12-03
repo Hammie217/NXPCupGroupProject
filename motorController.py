@@ -1,4 +1,4 @@
-from periphery import PWM
+from periphery import PWM, I2C
 import time
 class ESC():
     def __init__(self,pin):
@@ -37,7 +37,7 @@ class ESC():
         self.pwm.close()
 
 class Servo():
-    def __init__(self,pin):
+    def __init__(self,pin=0):
         if(pin == 32):
             PWMOut = 0
         elif(pin==33):
@@ -73,23 +73,46 @@ class Servo():
         self.pwm.close()
 
 
-motor1 = ESC(32)
-motor2 = ESC(33)
-steering = Servo(15)
-motor1.start()
-motor2.start()
-steering.start()
+class I2CPin():
+    def __init__(self,pin):
+        if(pin==1):
+            self.i2c=I2C("/dev/i2c-1")
+        elif(pin==2):
+            self.i2c=I2C("/dev/i2c-2")
+        else:
+            print("Invalid I2C pin given (1-2)")
+
+    def sendData(self,message):
+        self.i2c.transfer(0x50,message)
+
+    def stop(self):
+        self.i2c.close()
 
 
-for i in range(0,90):
-    motor1.setSpeed(i)
-    motor2.setSpeed(i)
-    steering.setPosition((i*2)-90)
-    print(i)
-    time.sleep(0.1)
+def testMotorsAndSteering():
+    motor1 = ESC(32)
+    motor2 = ESC(33)
+    steering = Servo(15)
+    motor1.start()
+    motor2.start()
+    steering.start()
 
-motor1.stop()
-motor2.stop()
-steering.stop()
 
+    for i in range(0,90):
+        motor1.setSpeed(i)
+        motor2.setSpeed(i)
+        steering.setPosition((i*2)-90)
+        print(i)
+        time.sleep(0.1)
+
+    motor1.stop()
+    motor2.stop()
+    steering.stop()
+
+def testI2CBus():
+    board1=I2CPin(1)
+    board1.sendData("Hello")
+    board1.stop()
+
+testI2CBus()
 

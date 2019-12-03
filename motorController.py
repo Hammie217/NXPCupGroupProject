@@ -84,6 +84,7 @@ class I2CPin():
 
     def sendData(self,message):
         msgs = [I2C.Message([0x01, 0x00]), I2C.Message([0x00], read=True)]
+        print("0x100: 0x{:02x}".format(msgs[1].data[0]))
         self.i2c.transfer(0x1D,msgs)
 
     def stop(self):

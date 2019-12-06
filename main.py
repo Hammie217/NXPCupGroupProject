@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import time
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 sumOfFPS=0
 sumOfFPSQ=0
 while(True):
@@ -115,11 +115,11 @@ while(True):
 
     '''
     # Display the resulting frame
-    cv2.imshow('frame',frame)
-    print("{0:4.2f} Seconds".format((time.time() - start_time)))
-    sumOfFPS+=(1/(time.time() - start_time))
-    sumOfFPSQ +=1
-    print("Average FPS {0:4.1f}".format( (sumOfFPS/sumOfFPSQ) ) ) 
+    #cv2.imshow('frame',frame)
+    #print("{0:4.2f} Seconds".format((time.time() - start_time)))
+    #sumOfFPS+=(1/(time.time() - start_time))
+    #sumOfFPSQ +=1
+    #print("Average FPS {0:4.1f}".format( (sumOfFPS/sumOfFPSQ) ) ) 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 

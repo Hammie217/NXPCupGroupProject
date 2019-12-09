@@ -20,7 +20,7 @@ while(True):
 
     height = BorW.shape[0]
     width = BorW.shape[1]
-    print(width)
+    #print(width)
     averageL = [None] * 10
     averageR = [None] * 10
     for ii in range(0,10):
@@ -55,7 +55,7 @@ while(True):
         cv2.line(frame,(int(averageL[ii]),int((ii)*height/10)),(int(averageL[ii]),int((ii+1)*height/10)),(0,0,255),2)
         cv2.line(frame,(int(averageR[ii]),int((ii)*height/10)),(int(averageR[ii]),int((ii+1)*height/10)),(0,0,255),2)
 
-
+    print("Right:" +str(averageR[ii])  + "  Left: "+str(averageL[ii]))
     
 
     #contours, hierarchy = cv2.findContours(BorW,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
@@ -115,7 +115,7 @@ while(True):
 
     '''
     # Display the resulting frame
-    #cv2.imshow('frame',frame)
+    cv2.imshow('frame',frame)
     #print("{0:4.2f} Seconds".format((time.time() - start_time)))
     #sumOfFPS+=(1/(time.time() - start_time))
     #sumOfFPSQ +=1

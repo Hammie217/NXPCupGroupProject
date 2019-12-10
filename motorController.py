@@ -86,7 +86,7 @@ class I2CPin():
         msgs=[]
         try:
             for i in message:
-                msgs.append(I2C.Message([i.to_bytes(2)]))
+                msgs.append(I2C.Message([i.to_bytes()]))
             try:
                 self.i2c.transfer(0x1D,msgs)
             except:
@@ -124,4 +124,5 @@ def testI2CBus():
     board1.sendData([0,1,2])
     board1.stop()
 
-testI2CBus()
+#testI2CBus()
+

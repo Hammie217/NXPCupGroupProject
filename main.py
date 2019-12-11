@@ -72,11 +72,17 @@ while(True):
 
     #print("Right:" +str(averageR[ii])  + "  Left: "+str(averageL[ii]))
     if(motorsStarted==1):
-        l=((averageL[5]/width-0.25)*4*90)
-        r=(((((averageR[5]-(width/2))/width)-0.25)*4*90))
-        steering.setPosition(-(l+r)/2)
+        l,r = 0
+        for i in range(0,10): #sums the averages for each 'bar' that the imaging program looks at so you can calculate a single average value for the entire screen
+            l= l + ((averageL[i]/width-0.25)*4*90)
+            r= r + ((((averageR[i]-(width/2))/width)-0.25)*4*90)
+            
+        l = l / 10 # divide by 11 (range 0-10 = 11 values)
+        r = r / 10
+            
+        steering.setPosition(-(l+r)/2) # average left and right values to get the angle to correct with
         print("L: " +str(l) +" R:" +str(r))
-    
+
 
     #contours, hierarchy = cv2.findContours(BorW,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
 

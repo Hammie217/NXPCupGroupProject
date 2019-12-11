@@ -6,11 +6,11 @@ from motorController import Servo, ESC
 
 #Setup motors
 try:
-    motor1 = ESC(32)
-    steering = Servo(15)
-    motor1.start()
+    #motor1 = ESC(32)
+    steering = Servo(32)
+    #motor1.start()
     steering.start()
-    motor1.setSpeed(10)
+    #motor1.setSpeed(10)
     motorsStarted=1
 except:
     print("Can't start motor")
@@ -70,10 +70,12 @@ while(True):
         cv2.line(frame,(int(averageL[ii]),int((ii)*height/10)),(int(averageL[ii]),int((ii+1)*height/10)),(0,0,255),2)
         cv2.line(frame,(int(averageR[ii]),int((ii)*height/10)),(int(averageR[ii]),int((ii+1)*height/10)),(0,0,255),2)
 
-    print("Right:" +str(averageR[ii])  + "  Left: "+str(averageL[ii]))
+    #print("Right:" +str(averageR[ii])  + "  Left: "+str(averageL[ii]))
     if(motorsStarted==1):
-        steering.setPosition((averageL[5]/width-0.25)*4*90)
-
+        l=((averageL[5]/width-0.25)*4*90)
+        r=(((((averageR[5]-(width/2))/width)-0.25)*4*90))
+        steering.setPosition(-(l+r)/2)
+        print("L: " +str(l) +" R:" +str(r))
     
 
     #contours, hierarchy = cv2.findContours(BorW,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
@@ -133,7 +135,7 @@ while(True):
 
     '''
     # Display the resulting frame
-    cv2.imshow('frame',frame)
+    #cv2.imshow('frame',frame)
     #print("{0:4.2f} Seconds".format((time.time() - start_time)))
     #sumOfFPS+=(1/(time.time() - start_time))
     #sumOfFPSQ +=1

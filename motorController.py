@@ -1,5 +1,17 @@
 from periphery import PWM, I2C
 import time
+
+class SBL():
+    def __init__():
+        uart3 = Serial("/dev/ttymxc2", 115200)
+        uart3.write("^ECHOF 1\r")
+        uart3.write("^HSM 1 3\r")
+
+    def getSpeed():
+        uart3.write("?BS 1\r")
+        buf = uart3.read(128, 0.1)
+        print(buf)
+
 class ESC():
     def __init__(self,pin):
         if(pin == 32):
@@ -15,10 +27,10 @@ class ESC():
         self.pwm = PWM(PWMOut, 0)
         self.pwm.frequency = 50
 
-    
+
     def setFrequency(self,frequency):
         self.pwm.frequency = frequency
-    
+
     def setSpeed(self,Duty):
         if((Duty>=0)and(Duty<=100)):
             Duty=(Duty*0.0005)+0.05
@@ -51,10 +63,10 @@ class Servo():
         self.pwm = PWM(PWMOut, 0)
         self.pwm.frequency = 50
 
-    
+
     def setFrequency(self,frequency):
         self.pwm.frequency = frequency
-    
+
     def setPosition(self,Rotation):
         if((Rotation>-90)and(Rotation<90)):
             Duty = 0.075+(Rotation*0.05/180)
@@ -93,7 +105,7 @@ class I2CPin():
                 print("Unable to find device at 0x1D")
         except:
             print("Error in data")
-        
+
 
     def stop(self):
         self.i2c.close()
@@ -127,3 +139,6 @@ def testI2CBus():
 #testI2CBus()
 
 #testMotorsAndSteering()
+
+sbl = SBL()
+sbl.getSpeed

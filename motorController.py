@@ -1,15 +1,17 @@
-from periphery import PWM, I2C
+from periphery import PWM, I2C, Serial
 import time
 
 class SBL():
-    def __init__():
-        uart3 = Serial("/dev/ttymxc2", 115200)
-        uart3.write("^ECHOF 1\r")
-        uart3.write("^HSM 1 3\r")
+    def __init__(self):
+        print('Initialising SBL...')
+        self.uart3 = Serial('/dev/ttymxc2', 115200)
+        self.uart3.write(b'^ECHOF 1\r')
+        self.uart3.write(b'^HSM 1 3\r')
 
-    def getSpeed():
-        uart3.write("?BS 1\r")
-        buf = uart3.read(128, 0.1)
+    def getSpeed(self):
+        print('Requesting speed...')
+        self.uart3.write(b'?BS 1\r')
+        buf =self.uart3.read(128, 0.1)
         print(buf)
 
 class ESC():
@@ -140,5 +142,6 @@ def testI2CBus():
 
 #testMotorsAndSteering()
 
-sbl = SBL()
-sbl.getSpeed
+#sbl = SBL()
+#sbl.getSpeed()
+

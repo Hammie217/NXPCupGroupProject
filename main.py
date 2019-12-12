@@ -18,6 +18,8 @@ except:
 
 
 cap = cv2.VideoCapture(1)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH,160);
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT,120);
 sumOfFPS=0
 sumOfFPSQ=0
 while(True):
@@ -72,14 +74,18 @@ while(True):
 
     #print("Right:" +str(averageR[ii])  + "  Left: "+str(averageL[ii]))
     if(motorsStarted==1):
-        l,r = 0
+        l = 0
+        r=0
         for i in range(0,10): #sums the averages for each 'bar' that the imaging program looks at so you can calculate a single average value for the entire screen
             l= l + ((averageL[i]/width-0.25)*4*90)
             r= r + ((((averageR[i]-(width/2))/width)-0.25)*4*90)
             
         l = l / 10 # divide by 11 (range 0-10 = 11 values)
         r = r / 10
-            
+        
+        l=((averageL[4]/width-0.25)*4*90)
+        r=((((averageR[4]-(width/2))/width)-0.25)*4*90)
+
         steering.setPosition(-(l+r)/2) # average left and right values to get the angle to correct with
         print("L: " +str(l) +" R:" +str(r))
 

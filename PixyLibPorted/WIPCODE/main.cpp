@@ -6,7 +6,7 @@
 #define PI 3.14159265
 #define NOLINESSTOP 100 //0-255
 #define DEBUG 1 //1 for serial output, 0 for off
-#define FUDGEFACTOR 0.7
+#define FUDGEFACTOR -0.7
 
 #ifndef DEBUG
     #define DEBUG 0

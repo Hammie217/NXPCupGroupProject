@@ -2,6 +2,7 @@
 #include "Pixy2.h"
 #include "global_parts.h"
 #include "cmath"
+#include "SBL1360.h"
 
 #define PI 3.14159265
 #define NOLINESSTOP 100 //0-255
@@ -17,6 +18,8 @@ PwmOut servo(D10);
 
 Pixy2 pixy;
 Timer t; 
+
+SBL1360 sbl;
 
 void initServo(){
     servo.period_ms(20);//20ms delay aka 50Hz
@@ -54,10 +57,13 @@ int main(void)
     double ratio;
     uint8_t blankInputTimer = 0;
     int driveForward =0;
+
     // ------------------------------ main ------------------------------
 
     while(1)
     {
+        sbl.update();
+        
         pixy.line.getMainFeatures();
         if (pixy.line.numVectors){
             //pixy.line.vectors->print();

@@ -15,7 +15,6 @@
 
 PwmOut servo(D10);
 
-
 Pixy2 pixy;
 Timer t; 
 

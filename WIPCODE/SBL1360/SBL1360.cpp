@@ -1,10 +1,10 @@
 #include "mbed.h"
 #include "SBL1360.h"
 
-Serial rs232(D14, D15);
+Serial rs232(D14, D15); // UART1 TX RX
 
 #ifdef BLUETOOTH_BUF_LENGTH
-Serial bt(PTE22, PTE23); // UART2
+Serial bt(PTE22, PTE23); // UART2 TX RX
 #endif
 
 Ticker sbl_wdog_serve;

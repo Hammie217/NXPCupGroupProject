@@ -7,7 +7,8 @@
 #define PI 3.14159265
 #define NOLINESSTOP 100 //0-255
 #define DEBUG 1 //1 for serial output, 0 for off
-#define FUDGEFACTOR -0.7
+#define FUDGEFACTOR -2
+#define SERVO_LIMIT 0.7
 
 #ifndef DEBUG
     #define DEBUG 0
@@ -27,11 +28,11 @@ void initServo(){
 
 void setServoRatio(double desiredRatio){
     // <-1 desired ratio <1
-    if((desiredRatio>1))
-        desiredRatio=1;
-    else if((desiredRatio<-1))
-        desiredRatio=-1;
     desiredRatio *= FUDGEFACTOR;
+    if((desiredRatio>SERVO_LIMIT))
+        desiredRatio=SERVO_LIMIT;
+    else if((desiredRatio<-SERVO_LIMIT))
+        desiredRatio=-SERVO_LIMIT;
     uint16_t desiredOnTime = floor(500*desiredRatio)+1500;
     servo.pulsewidth_us(desiredOnTime);
 }
@@ -43,7 +44,6 @@ int main(void)
         pc.baud(115200);
         pc.printf("Starting...\n");
     }
-        
 
     pixy.init();
     initServo();

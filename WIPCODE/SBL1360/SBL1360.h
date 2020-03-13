@@ -9,7 +9,7 @@ class SBL1360{
         #ifdef BLUETOOTH_BUF_LENGTH
         char bufFromBt[BLUETOOTH_BUF_LENGTH];
         int bufIndex = 0;
-        //bool negative = 0;
+        bool negative = 0;
         #endif
 
     public:

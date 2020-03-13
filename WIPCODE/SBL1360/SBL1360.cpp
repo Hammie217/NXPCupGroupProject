@@ -1,5 +1,6 @@
 #include "mbed.h"
 #include "SBL1360.h"
+#include "global_parts.h"
 
 Serial rs232(D14, D15); // UART1 TX RX
 
@@ -44,7 +45,6 @@ void SBL1360::update(void){
             if(bt.readable()){
                 char charFromBt;
                 charFromBt = bt.getc();
-                //pc.printf("char incoming: %c\n", charFromBt);
                 if(charFromBt == '\r'){
                     int intFromBt = 0;
                     for(int n=0; n<bufIndex; n++){
@@ -54,14 +54,22 @@ void SBL1360::update(void){
                         }
                         intFromBt += bufFromBt[n]*powerOf10; // convert array to number
                     }
+                    if (negative) intFromBt *= -1;
                     bufIndex = 0;
+                    negative = 0;
                     this->speed(intFromBt);
                 } else if (charFromBt > 47 && charFromBt < 58){
-                    if (bufIndex == BLUETOOTH_BUF_LENGTH) bufIndex = 0;
+                    if (bufIndex == BLUETOOTH_BUF_LENGTH+1){
+                        bufIndex = 0;
+                        negative = 0;
+                    }
                     bufFromBt[bufIndex++] = charFromBt-48;  // convert to ASCII
-                    //pc.printf("valid char not end: %d\nnext buf index: %d\n", charFromBt-48, bufIndex);
+                } else if (charFromBt == '-'){
+                    bufIndex = 0;
+                    negative = 1;
                 } else {
                     bufIndex = 0;
+                    negative = 0;
                 }
             }
             #endif

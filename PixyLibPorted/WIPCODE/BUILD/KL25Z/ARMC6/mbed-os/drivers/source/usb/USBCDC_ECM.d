@@ -1,0 +1,37 @@
+BUILD/KL25Z/ARMC6/mbed-os/drivers/source/usb/USBCDC_ECM.o: \
+  mbed-os/drivers/source/usb/USBCDC_ECM.cpp \
+  BUILD/KL25Z/ARMC6/mbed_config.h mbed-os/drivers/USBCDC_ECM.h \
+  mbed-os/drivers/internal/USBDescriptor.h \
+  mbed-os/drivers/internal/USBDevice.h \
+  mbed-os/drivers/internal/USBDevice_Types.h mbed-os/hal/usb/USBPhy.h \
+  mbed-os/hal/usb/USBPhyTypes.h mbed-os/hal/usb/USBPhyEvents.h \
+  mbed-os/platform/mbed_critical.h mbed-os/platform/Callback.h \
+  mbed-os/platform/mbed_assert.h mbed-os/platform/mbed_toolchain.h \
+  mbed-os/platform/mbed_preprocessor.h \
+  mbed-os/drivers/internal/ByteBuffer.h mbed-os/rtos/Mutex.h \
+  mbed-os/rtos/mbed_rtos_types.h \
+  mbed-os/rtos/source/TARGET_CORTEX/rtx5/Include/cmsis_os2.h \
+  mbed-os/rtos/mbed_rtos1_types.h \
+  mbed-os/rtos/source/TARGET_CORTEX/rtx4/cmsis_os.h \
+  mbed-os/rtos/source/TARGET_CORTEX/rtx5/RTX/Include/rtx_os.h \
+  mbed-os/rtos/mbed_rtos_storage.h \
+  mbed-os/rtos/source/TARGET_CORTEX/mbed_rtx_storage.h \
+  mbed-os/rtos/source/TARGET_CORTEX/mbed_rtx_conf.h \
+  mbed-os/targets/TARGET_Freescale/mbed_rtx.h \
+  mbed-os/platform/NonCopyable.h mbed-os/platform/ScopedLock.h \
+  mbed-os/rtos/EventFlags.h mbed-os/events/EventQueue.h \
+  mbed-os/events/equeue.h mbed-os/events/internal/equeue_platform.h \
+  mbed-os/rtos/Thread.h mbed-os/rtos/Semaphore.h \
+  mbed-os/drivers/internal/EndpointResolver.h \
+  mbed-os/hal/usb/usb_phy_api.h mbed-os/platform/mbed_interface.h \
+  mbed-os/targets/TARGET_Freescale/TARGET_KLXX/TARGET_KL25Z/device.h \
+  mbed-os/targets/TARGET_Freescale/TARGET_KLXX/objects.h \
+  mbed-os/targets/TARGET_Freescale/TARGET_KLXX/TARGET_KL25Z/device/cmsis.h \
+  mbed-os/targets/TARGET_Freescale/TARGET_KLXX/TARGET_KL25Z/device/MKL25Z4.h \
+  mbed-os/cmsis/TARGET_CORTEX_M/core_cm0plus.h \
+  mbed-os/targets/TARGET_Freescale/TARGET_KLXX/TARGET_KL25Z/device/system_MKL25Z4.h \
+  mbed-os/targets/TARGET_Freescale/TARGET_KLXX/TARGET_KL25Z/device/cmsis_nvic.h \
+  mbed-os/targets/TARGET_Freescale/TARGET_KLXX/PortNames.h \
+  mbed-os/targets/TARGET_Freescale/TARGET_KLXX/TARGET_KL25Z/PeripheralNames.h \
+  mbed-os/targets/TARGET_Freescale/TARGET_KLXX/TARGET_KL25Z/PinNames.h \
+  mbed-os/targets/TARGET_Freescale/TARGET_KLXX/gpio_object.h
